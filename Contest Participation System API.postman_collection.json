@@ -1,0 +1,963 @@
+{
+	"info": {
+		"_postman_id": "66d10da8-6054-416f-8bf4-0862f9c457e9",
+		"name": "Contest Participation System API",
+		"description": "Complete API documentation for Contest Participation System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48160670",
+		"_collection_link": "https://repower-crm-team.postman.co/workspace/My-Personal~62a50e24-0ec8-48c5-9fab-dca8e47c9bfb/collection/48160670-66d10da8-6054-416f-8bf4-0862f9c457e9?action=share&source=collection_link&creator=48160670"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"johndoe\",\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@contest.com\",\n    \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTA2Y2ZjMzk1MGM5MTQ5ZTc1YmMzOCIsImlhdCI6MTc2MjY4NDY4OCwiZXhwIjoxNzYzMjg5NDg4fQ.bEOzylck2uHQD9ouJl8CrLGZFhb1gw3Rix3DzixANa4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get User Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTA2Y2ZjMzk1MGM5MTQ5ZTc1YmMzOCIsImlhdCI6MTc2MjY4NDY4OCwiZXhwIjoxNzYzMjg5NDg4fQ.bEOzylck2uHQD9ouJl8CrLGZFhb1gw3Rix3DzixANa4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Role (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role\": \"vip\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/:id/role",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								":id",
+								"role"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "USER_ID"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contests",
+			"item": [
+				{
+					"name": "Get All Contests",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/contests?status=active&accessLevel=normal",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"contests"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "active"
+								},
+								{
+									"key": "accessLevel",
+									"value": "normal"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Contest",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/contests/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"contests",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6910931859cb8ce38b631ac7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contest Questions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/contests/:id/questions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"contests",
+								":id",
+								"questions"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6910931859cb8ce38b631ac7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Contest (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTA2ZDg5M2U3NWZlNjQxYWZlOGJlOCIsImlhdCI6MTc2MjY4NDc3NywiZXhwIjoxNzYzMjg5NTc3fQ.EGP2Y3C9qThZH2a8A8zvLf52elMSeRxxed3FudGLwFw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Summer Quiz Contest\",\n    \"description\": \"Test your knowledge with our summer quiz\",\n    \"accessLevel\": \"normal\",\n    \"startTime\": \"2025-11-07T00:00:00Z\",\n    \"endTime\": \"2025-11-071T23:59:59Z\",\n    \"prize\": \"$1000 Cash Prize\",\n    \"prizeDetails\": \"Winner takes all\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/contests",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"contests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Contest (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Contest Name\",\n    \"description\": \"Updated description\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/contests/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"contests",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6910931859cb8ce38b631ac7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Contest (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/contests/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"contests",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "CONTEST_ID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Finalize Prizes (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/contests/:id/finalize-prizes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"contests",
+								":id",
+								"finalize-prizes"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6910931859cb8ce38b631ac7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Questions",
+			"item": [
+				{
+					"name": "Create Single-Select Question (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTA2ZDg5M2U3NWZlNjQxYWZlOGJlOCIsImlhdCI6MTc2MjY4NDc3NywiZXhwIjoxNzYzMjg5NTc3fQ.EGP2Y3C9qThZH2a8A8zvLf52elMSeRxxed3FudGLwFw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contestId\": \"69106f8cc9a284f06e324146\",\n    \"questionText\": \"What is the capital of France?\",\n    \"questionType\": \"single-select\",\n    \"options\": [\n        {\n            \"text\": \"London\",\n            \"isCorrect\": false\n        },\n        {\n            \"text\": \"Berlin\",\n            \"isCorrect\": false\n        },\n        {\n            \"text\": \"Paris\",\n            \"isCorrect\": true\n        },\n        {\n            \"text\": \"Madrid\",\n            \"isCorrect\": false\n        }\n    ],\n    \"points\": 10,\n    \"order\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/questions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"questions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Multi-Select Question (Admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTA2ZDg5M2U3NWZlNjQxYWZlOGJlOCIsImlhdCI6MTc2MjY5MzE4NCwiZXhwIjoxNzYzMjk3OTg0fQ.K1Pg6N1wL18SXOOc4THjhSjFLQF_AC3fJMowbK9a7EE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contestId\": \"6910715459cb8ce38b631a9d\",\n    \"questionText\": \"Which of the following are programming languages?\",\n    \"questionType\": \"multi-select\",\n    \"options\": [\n        {\n            \"text\": \"JavaScript\",\n            \"isCorrect\": true\n        },\n        {\n            \"text\": \"HTML\",\n            \"isCorrect\": false\n        },\n        {\n            \"text\": \"Python\",\n            \"isCorrect\": true\n        },\n        {\n            \"text\": \"CSS\",\n            \"isCorrect\": false\n        }\n    ],\n    \"points\": 15,\n    \"order\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/questions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"questions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create True/False Question (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contestId\": \"CONTEST_ID\",\n    \"questionText\": \"The Earth is round.\",\n    \"questionType\": \"true-false\",\n    \"options\": [\n        {\n            \"text\": \"True\",\n            \"isCorrect\": true\n        },\n        {\n            \"text\": \"False\",\n            \"isCorrect\": false\n        }\n    ],\n    \"points\": 5,\n    \"order\": 3\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/questions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"questions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Questions for Contest (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/questions/contest/6910715459cb8ce38b631a9d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"questions",
+								"contest",
+								"6910715459cb8ce38b631a9d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Question (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"questionText\": \"Updated question text\",\n    \"points\": 20\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/questions/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"questions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "QUESTION_ID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Question (Admin)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/questions/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"questions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "QUESTION_ID"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Participations",
+			"item": [
+				{
+					"name": "Start Contest",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/participations/start/:contestId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"participations",
+								"start",
+								":contestId"
+							],
+							"variable": [
+								{
+									"key": "contestId",
+									"value": "6910931859cb8ce38b631ac7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Answers",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"answers\": [\n        {\n            \"questionId\": \"6910931859cb8ce38b631ac7\",\n            \"selectedOptions\": [0]\n        },\n        {\n            \"questionId\": \"6910715459cb8ce38b631a9d\",\n            \"selectedOptions\": [0, 2]\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/participations/:participationId/submit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"participations",
+								":participationId",
+								"submit"
+							],
+							"variable": [
+								{
+									"key": "participationId",
+									"value": "69109714c8d11d44cecdf264"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Participation Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/participations/:participationId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"participations",
+								":participationId"
+							],
+							"variable": [
+								{
+									"key": "participationId",
+									"value": "69109714c8d11d44cecdf264"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Leaderboard",
+			"item": [
+				{
+					"name": "Get Leaderboard",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/leaderboard/:contestId?limit=100&offset=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"leaderboard",
+								":contestId"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "100"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							],
+							"variable": [
+								{
+									"key": "contestId",
+									"value": "6910931859cb8ce38b631ac7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Rank",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/leaderboard/:contestId/rank",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"leaderboard",
+								":contestId",
+								"rank"
+							],
+							"variable": [
+								{
+									"key": "contestId",
+									"value": "6910931859cb8ce38b631ac7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "History",
+			"item": [
+				{
+					"name": "Get Contest History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/history/contests?status=completed",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"history",
+								"contests"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "completed"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get In-Progress Contests",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/history/in-progress",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"history",
+								"in-progress"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Completed Contests",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/history/completed",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"history",
+								"completed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Prizes Won",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/history/prizes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"history",
+								"prizes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "admin_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
